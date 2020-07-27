@@ -2,5 +2,172 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "table-components": {
+      "projectType": "library",
+      "root": "projects/table-components",
+      "sourceRoot": "projects/table-components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/table-components/tsconfig.lib.json",
+            "project": "projects/table-components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/table-components/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/table-components/src/test.ts",
+            "tsConfig": "projects/table-components/tsconfig.spec.json",
+            "karmaConfig": "projects/table-components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/table-components/tsconfig.lib.json",
+              "projects/table-components/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "table-component-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/table-component-app",
+      "sourceRoot": "projects/table-component-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/table-component-app",
+            "index": "projects/table-component-app/src/index.html",
+            "main": "projects/table-component-app/src/main.ts",
+            "polyfills": "projects/table-component-app/src/polyfills.ts",
+            "tsConfig": "projects/table-component-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/table-component-app/src/favicon.ico",
+              "projects/table-component-app/src/assets"
+            ],
+            "styles": [
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "projects/table-component-app/src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/table-component-app/src/environments/environment.ts",
+                  "with": "projects/table-component-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "table-component-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "table-component-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "table-component-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/table-component-app/src/test.ts",
+            "polyfills": "projects/table-component-app/src/polyfills.ts",
+            "tsConfig": "projects/table-component-app/tsconfig.spec.json",
+            "karmaConfig": "projects/table-component-app/karma.conf.js",
+            "assets": [
+              "projects/table-component-app/src/favicon.ico",
+              "projects/table-component-app/src/assets"
+            ],
+            "styles": [
+              "projects/table-component-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/table-component-app/tsconfig.app.json",
+              "projects/table-component-app/tsconfig.spec.json",
+              "projects/table-component-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/table-component-app/e2e/protractor.conf.js",
+            "devServerTarget": "table-component-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "table-component-app:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": "12320aa9-70fd-4c39-bcc5-40b0002b7ef8"
+  },
+  "defaultProject": "table-components"
 }

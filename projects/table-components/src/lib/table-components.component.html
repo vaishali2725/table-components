@@ -1,0 +1,24 @@
+<div class="p-5 m-5">
+  <div class="table-responsive table-container" *ngIf="isDataLoaded">
+    <button *ngIf="exportToExcelBtn" class="btn btn-info btn-sm mr-2" (click)="downloadData('xlxs')">Export To Excel</button>
+    <button *ngIf="exportToCsvBtn"  class="btn btn-info btn-sm mr-2" (click)="downloadData('csv')">Export To CSV</button>
+    <button *ngIf="printBtn"  class="btn btn-warning btn-sm mr-2">Print</button>
+    <button *ngIf="copyToClipBoardBtn"  class="btn btn-warning btn-sm mr-2">Copy to Clipboard</button>
+    <hr>
+    <table class="table" datatable [dtOptions]="dtOptions">
+      <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let column of columns">
+            {{column}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td *ngFor="let column of columns" >
+            {{row[column]}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+ </div>

@@ -6,5 +6,18 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/table-components/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/table-components/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/table-component-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/table-component-app/tsconfig.spec.json"
+    }
+]
 }
